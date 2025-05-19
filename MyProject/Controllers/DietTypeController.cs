@@ -18,36 +18,103 @@ namespace MyProject.Controllers
         }
 
         // GET: api/<DietTypeController>
+
         [HttpGet]
-        public List<DietDto> Get()
+        public ActionResult<List<DietDto>> Get()
         {
-            return _service.GetAll();
+            try
+            {
+                var diets = _service.GetAll();
+                return Ok(diets);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        //V
+        [HttpGet("{id}")]
+        public ActionResult<DietDto> Get(int id)
+        {
+            try
+            {
+                var diet = _service.GetById(id);
+                if (diet == null)
+                    return NotFound($"diet with id {id} not found.");
+
+                return Ok(diet);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        // GET api/<DietTypeController>/5
-        [HttpGet("{id}")]
-        public DietDto Get(int id)
-        {
-            return _service.GetById(id);
-        }
+
+
+
+
+
+
+
+
 
         // POST api/<DietTypeController>
         [HttpPost]
-        public DietDto Post([FromForm] DietDto diet)
+        //public DietDto Post([FromForm] DietDto diet)
+        //{
+        //    return _service.AddItem(diet);
+        //}
+
+
+        public IActionResult Post([FromForm] DietDto diet)
         {
-            return _service.AddItem(diet);
+
+            if (diet == null)
+                return BadRequest("Invalid Diet data.");
+            //var path =Path.Combine( Environment.CurrentDirectory , "Images//" , diet.fileImage.FileName);
+            //using (var stream = new FileStream(path, FileMode.Create))
+            //{
+            //    stream.CopyTo(stream);
+
+            //}
+            _service.AddItem(diet);
+            return Ok("Diet added successfully.");
         }
+
+
+
+
+
 
         // PUT api/<DietTypeController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+
+        public IActionResult Put(int id, [FromForm] DietDto dietDto)
         {
+            if (id != dietDto. DietId)
+                return BadRequest("ID mismatch.");
+
+            try
+            {
+                _service.UpdateItem(id, dietDto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
+        //public void Put(int id, [FromBody] string value)
+        //{
+
+        //}
 
         // DELETE api/<DietTypeController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Service
         {
             CreateMap<Customer, CustomerDto>().ForMember("ImagePath", x => x.MapFrom(y => File.ReadAllBytes(path + y.ImageUrl)));
             CreateMap<CustomerDto, Customer>().ForMember("ImageUrl", x => x.MapFrom(y => y.fileImage.FileName));//check this line
+            CreateMap<DietType, DietDto>().ReverseMap();
             CreateMap<WeeklyTracking, WeeklyTrackingDto>().ReverseMap();
 
 
