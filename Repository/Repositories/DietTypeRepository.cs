@@ -47,7 +47,9 @@ namespace Repository.Repositories
             dietType.MealsPerDay = item.MealsPerDay;
             dietType.NumCalories = item.NumCalories;
             dietType.Customers = item.Customers;
+            dietType.TimeMealsString = item.TimeMealsString;
             //לבדק אם זה באמת כל הפרופרטי
+            _context.Save();
         }
     }
 }

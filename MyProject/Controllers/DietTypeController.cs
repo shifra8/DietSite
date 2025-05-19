@@ -1,4 +1,5 @@
 ﻿using Common.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 
@@ -105,16 +106,22 @@ namespace MyProject.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        //public void Put(int id, [FromBody] string value)
-        //{
-
-        //}
+       
 
         // DELETE api/<DietTypeController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+       
+        public IActionResult Delete(int id)
         {
-
+            try
+            {
+                _service.DeleteItem(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }
