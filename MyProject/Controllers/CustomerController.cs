@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System;
 using Repository.Entities;
+using Service.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace MyProject.Controllers
 {
@@ -17,10 +19,11 @@ namespace MyProject.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IService<CustomerDto> _service;
-
-        public CustomerController(IService<CustomerDto> service)
+        private readonly IFileUploadService _fileUploadService;
+        public CustomerController(IService<CustomerDto> service, IFileUploadService fileUploadService)
         {
             _service = service;
+            _fileUploadService = fileUploadService;
         }
 
         // שליפת כל הלקוחות
@@ -69,7 +72,8 @@ namespace MyProject.Controllers
             string imagePath = null;
             if (request.Image != null && request.Image.Length > 0)
             {
-                imagePath = await UploadImage(request.Image);
+                 imagePath = await _fileUploadService.UploadImageAsync(formFile, "dietTypes");
+
             }
 
             CustomerCreateRequest request1 = request;
@@ -127,24 +131,24 @@ namespace MyProject.Controllers
         }
 
         // פונקציה להעלאת קובץ תמונה
-        private async Task<string> UploadImage(IFormFile file)
-        {
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images");
-            if (!Directory.Exists(uploadsFolder))
-            {
-                Directory.CreateDirectory(uploadsFolder);
-            }
+        //private async Task<string> UploadImage(IFormFile file)
+        //{
+        //    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images");
+        //    if (!Directory.Exists(uploadsFolder))
+        //    {
+        //        Directory.CreateDirectory(uploadsFolder);
+        //    }
 
-            var uniqueFileName = $"{Guid.NewGuid()}_{file.FileName}";
-            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+        //    var uniqueFileName = $"{Guid.NewGuid()}_{file.FileName}";
+        //    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+        //    using (var stream = new FileStream(filePath, FileMode.Create))
+        //    {
+        //        await file.CopyToAsync(stream);
+        //    }
 
-            return $"/Images/{uniqueFileName}";
-        }
+        //    return $"/Images/{uniqueFileName}";
+        //}
 
         //// פונקציה להמיר מזהים לדיאט
         //private List<DietType> GetDietTypeFromFoodIds(List<int> foodIds)

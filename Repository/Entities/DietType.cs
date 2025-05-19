@@ -28,7 +28,8 @@ namespace Repository.Entities
 
         public string SpecialComments { get; set; }
         public virtual ICollection<Customer> Customers { get; set; }
-      //  public virtual ICollection<Product> Products { get; set; }
-        
+        //  public virtual ICollection<Product> Products { get; set; }
+        public string? ImageUrl { get; set; }
+
     }
 }

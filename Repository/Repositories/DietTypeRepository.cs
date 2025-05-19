@@ -42,9 +42,9 @@ namespace Repository.Repositories
         public void UpdateItem(int id, DietType item)
         {
            var dietType = GetById(id);
-            dietType.NameDiet = item.NameDiet;
+            dietType.DietName = item.DietName;
             dietType.TimeMeals = item.TimeMeals;
-            dietType.NumMeal = item.NumMeal;
+            dietType.MealsPerDay = item.MealsPerDay;
             dietType.NumCalories = item.NumCalories;
             dietType.Customers = item.Customers;
             //לבדק אם זה באמת כל הפרופרטי
