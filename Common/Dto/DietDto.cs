@@ -6,7 +6,8 @@
         public string DietName { get; set; }
         public int MealsPerDay { get; set; }
         public int NumCalories { get; set; }
-        public string SpecialNotes { get; set; }
+        public string SpecialComments { get; set; }
+        public string TimeMealsString { get; set; }
 
         // המרה מ-DietType ל-DietDto
         //public static DietDto FromEntity(Repository.Entities.DietType dietType)
