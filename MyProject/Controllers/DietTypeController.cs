@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
+using Service.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,12 +13,15 @@ namespace MyProject.Controllers
     public class DietTypeController : ControllerBase
     {
         private readonly IService<DietDto> _service;
+        private readonly IFileUploadService _fileUploadService;
 
-        public DietTypeController(IService<DietDto> _service)
+        public DietTypeController(IFileUploadService fileUploadService, IService<DietDto> _service)
         {
+            _fileUploadService = fileUploadService;
             this._service = _service;
         }
 
+       
         // GET: api/<DietTypeController>
 
         [HttpGet]

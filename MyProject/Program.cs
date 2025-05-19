@@ -10,6 +10,7 @@ using System.Text;
 using Repository.Entities;
 using Repository.Reposetories;
 using Repository.Repositories;
+using Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +48,7 @@ builder.Services.AddSwaggerGen(option =>
 
 // ✅ הרשמה לשירותים שלך
 builder.Services.AddScoped<IService<CustomerDto>, CustomerService>();
+builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 
 builder.Services.AddScoped<IService<CustomerDto>, CustomerService>();
 builder.Services.AddScoped<IRepository<Customer>, CustomerRepository>(); // או השם המדויק שלך
