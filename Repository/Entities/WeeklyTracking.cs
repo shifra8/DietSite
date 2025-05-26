@@ -15,7 +15,7 @@ namespace Repository.Entities
         public int CustId { get; set; }
         [ForeignKey("CustId")]
         public Customer Customer { get; set; }
-        public DateTime WeakDate { get; set; }
+        public DateTime WeekDate { get; set; }
         public double UpdatdedWieght { get; set; }
         public bool IsPassCalories { get; set; }
 

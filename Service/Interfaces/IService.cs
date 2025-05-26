@@ -1,4 +1,5 @@
 ﻿
+using Common.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace Service.Interfaces
         T AddItem(T item);
         void DeleteItem(int id);
         void UpdateItem(int id, T item);
+        
     }
 }

@@ -43,10 +43,10 @@ namespace Repository.Repositories
         {
             var WeeklyTracking = GetById(id);
             WeeklyTracking.CustId = item.CustId;
-            WeeklyTracking.WeakDate = item.WeakDate;
+            WeeklyTracking.WeekDate = item.WeekDate;
             WeeklyTracking.IsPassCalories = item.IsPassCalories;
             WeeklyTracking. UpdatdedWieght = item.UpdatdedWieght;
-           
+            _context.Save();
             //לבדק אם זה באמת כל הפרופרטי
         }
     }

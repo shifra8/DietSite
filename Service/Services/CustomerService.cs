@@ -48,5 +48,10 @@ namespace Service
         {
             _repository.UpdateItem(id, _mapper.Map<CustomerDto, Customer>(item));
         }
+
+        public void UpdateItem(int id, WeeklyTrackingDto weeklyTrackingDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

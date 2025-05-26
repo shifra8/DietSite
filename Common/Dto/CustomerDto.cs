@@ -11,11 +11,11 @@ namespace Common.Dto
         public string Phone { get; set; }
         public string FullName { get; set; }
        // public string LastName { get; set; }
-        public string Role { get; set; }
+        public eRole Role { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public double Height { get; set; }
-        public double Weight { get; set; }
+        public double? Height { get; set; }
+        public double? Weight { get; set; }
         //public DietType DietType { get; set; } // שדה לדיאט טייפ (ולא string)
         public int Id { get; set; }
         public byte[]? ImagePath { get; set; }

@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class WeeklyTrackingServiece : IService<WeeklyTrackingDto>
+    public class WeeklyTrackingService : IService<WeeklyTrackingDto>
     {
         private readonly IRepository<WeeklyTracking> _repository;
         private readonly IMapper _mapper;
 
-        public WeeklyTrackingServiece(IRepository<WeeklyTracking> repository, IMapper mapper)
+        public WeeklyTrackingService(IRepository<WeeklyTracking> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

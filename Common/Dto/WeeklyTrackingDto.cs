@@ -8,9 +8,10 @@ namespace Common.Dto
 {
     public class WeeklyTrackingDto
     {
-        public string CustomerId { get; set; }
-        public DateTime TrackingDate { get; set; }
-        public double UpdatedWeight { get; set; }
-        public bool ExceededCalories { get; set; }
+        public int Id { get; set; }
+        public int CustId { get; set; }               
+        public DateTime WeekDate { get; set; }        
+        public double UpdatdedWieght { get; set; }    
+        public bool IsPassCalories { get; set; }
     }
 }

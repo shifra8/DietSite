@@ -72,7 +72,7 @@ namespace MyProject.Controllers
             string imagePath = null;
             if (request.Image != null && request.Image.Length > 0)
             {
-                 imagePath = await _fileUploadService.UploadImageAsync(formFile, "dietTypes");
+               //  imagePath = await _fileUploadService.UploadImageAsync(formFile, "dietTypes");
 
             }
 
@@ -80,8 +80,7 @@ namespace MyProject.Controllers
             var customerDto = new CustomerDto
             {
                 Id = request.Id,
-              //  FullName = request. ,
-                //LastName = request.LastName,
+                FullName=request.FullName,
                 Email = request.Email,
                 Phone = request.Phone,
                 Height = request.Height,

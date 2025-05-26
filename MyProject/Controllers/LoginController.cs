@@ -25,21 +25,7 @@ namespace MyProject.Controllers
         }
 
         // POST api/login (רישום משתמש חדש)
-        [HttpPost]
-        public IActionResult Post([FromForm] CustomerDto customer)
-        {
-
-            if (customer == null)
-                return BadRequest("Invalid customer data.");
-            var path =Path.Combine( Environment.CurrentDirectory , "Images//" , customer.fileImage.FileName);
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                stream.CopyTo(stream);
-
-            }
-            _service.AddItem(customer);
-            return Ok("Customer added successfully.");
-        }
+        
 
         // POST api/login/login (כניסה למערכת)
         [HttpPost("login")]
@@ -65,18 +51,18 @@ namespace MyProject.Controllers
             _service.UpdateItem(id, customer); // שלח את ה-ID כ-string
             return Ok("Customer updated successfully.");
         }
-
+        //check if need delete for login
         // DELETE api/login/{id} (מחיקת לקוח)
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var customer = _service.GetById(id);
-            if (customer == null)
-                return NotFound("Customer not found.");
+        //[HttpDelete("{id}")]
+        //public IActionResult Delete(int id)
+        //{
+        //    var customer = _service.GetById(id);
+        //    if (customer == null)
+        //        return NotFound("Customer not found.");
 
-            _service.DeleteItem(id); // שלח את ה-ID כ-string
-            return Ok("Customer deleted successfully.");
-        }
+        //    _service.DeleteItem(id); // שלח את ה-ID כ-string
+        //    return Ok("Customer deleted successfully.");
+        //}
 
         // פונקציית אימות
         private CustomerDto Authenticate(UserLogin userLogin)
@@ -96,7 +82,7 @@ namespace MyProject.Controllers
             {
                 new Claim(ClaimTypes.Name, customer.FullName),
                 new Claim(ClaimTypes.Email, customer.Email),
-                new Claim(ClaimTypes.Role, customer.Role)
+                new Claim(ClaimTypes.Role, customer.Role.ToString())
             };
              
             var token = new JwtSecurityToken(
