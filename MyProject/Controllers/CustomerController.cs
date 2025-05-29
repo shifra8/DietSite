@@ -61,38 +61,39 @@ namespace MyProject.Controllers
             }
         }
 
-        // הוספת לקוח חדש (כולל אפשרות להעלות תמונה)
-        [HttpPost]
-        [Authorize(Roles = "ADMIN")]    
-        public async Task<ActionResult<CustomerDto>> Post([FromForm] CustomerCreateRequest request)
-        {
-            if (request == null)
-                return BadRequest("Invalid request.");
+        //// הוספת לקוח חדש (כולל אפשרות להעלות תמונה)
+        ///נחבר לsignup ב react
+        //[HttpPost]
+        //[Authorize(Roles = "ADMIN")]    
+        //public async Task<ActionResult<CustomerDto>> Post([FromForm] CustomerCreateRequest request)
+        //{
+        //    if (request == null)
+        //        return BadRequest("Invalid request.");
 
-            string imagePath = null;
-            if (request.Image != null && request.Image.Length > 0)
-            {
-               //  imagePath = await _fileUploadService.UploadImageAsync(formFile, "dietTypes");
+        //    string imagePath = null;
+        //    if (request.Image != null && request.Image.Length > 0)
+        //    {
+        //       //  imagePath = await _fileUploadService.UploadImageAsync(formFile, "dietTypes");
 
-            }
+        //    }
 
-            CustomerCreateRequest request1 = request;
-            var customerDto = new CustomerDto
-            {
-                Id = request.Id,
-                FullName=request.FullName,
-                Email = request.Email,
-                Phone = request.Phone,
-                Height = request.Height,
-                Weight = request.Weight,
-                Role = request.Role,
-                //DietType = new DietType(),
-                //ImagePath = imagePath
-            };
+        //    CustomerCreateRequest request1 = request;
+        //    var customerDto = new CustomerDto
+        //    {
+        //        Id = request.Id,
+        //        FullName=request.FullName,
+        //        Email = request.Email,
+        //        Phone = request.Phone,
+        //        Height = request.Height,
+        //        Weight = request.Weight,
+        //        Role = request.Role,
+        //        //DietType = new DietType(),
+        //        //ImagePath = imagePath
+        //    };
 
-            var createdCustomer = _service.AddItem(customerDto);
-            return CreatedAtAction(nameof(Get), new { id = createdCustomer.Id }, createdCustomer);
-        }
+        //    var createdCustomer = _service.AddItem(customerDto);
+        //    return CreatedAtAction(nameof(Get), new { id = createdCustomer.Id }, createdCustomer);
+        //}
 
         // עדכון לקוח קיים
         [HttpPut("{id}")]

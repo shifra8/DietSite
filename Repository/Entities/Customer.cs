@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static Repository.Entities.CustomerFoodPerfence;
 
 namespace Repository.Entities
 {
@@ -46,6 +47,9 @@ namespace Repository.Entities
         public virtual ICollection<WeeklyTracking> WeeklyTrackings { get; set; }
 
         public eRole Role { get; set; }
-        public string? ImageUrl { get; set; } 
+        public string? ImageUrl { get; set; }
+        //שורה שהוספה עפ"י הנחיותgpt
+        public virtual ICollection<CustomerFoodPreference> FoodPreferences { get; set; }
+
     }
 }

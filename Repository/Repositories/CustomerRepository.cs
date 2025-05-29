@@ -49,7 +49,7 @@ namespace Repository.Reposetories
             customer.Weight= item.Weight;
             customer.Height= item.Height;
             customer.Phone= item.Phone;
-            customer.Role= item.Role;
+            //customer.Role= item.Role;
             customer.Password= item.Password;
             customer.ImageUrl= item.ImageUrl;
   
