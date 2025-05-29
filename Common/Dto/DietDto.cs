@@ -1,4 +1,6 @@
-﻿namespace Common.Dto
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Common.Dto
 {
     public class DietDto
     {
@@ -8,6 +10,10 @@
         public int NumCalories { get; set; }
         public string SpecialComments { get; set; }
         public string TimeMealsString { get; set; }
+
+        public IFormFile? fileImage { get; set; } // התמונה שמועלת ע"י המשתמש
+        public string? ImagePath { get; set; }    // הנתיב לתמונה כפי שנשמר
+
 
         // המרה מ-DietType ל-DietDto
         //public static DietDto FromEntity(Repository.Entities.DietType dietType)

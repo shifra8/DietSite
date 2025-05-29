@@ -19,8 +19,12 @@ namespace Service
             CreateMap<CustomerDto, Customer>().ForMember("ImageUrl", x => x.MapFrom(y => y.fileImage.FileName));//check this line
             CreateMap<DietType, DietDto>().ReverseMap();
             CreateMap<WeeklyTracking, WeeklyTrackingDto>().ReverseMap();
+            CreateMap<DietType, DietDto>()
+                  .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => src.ImageUrl));
 
-
+            // מיפוי מ-DietDto ל-DietType
+            CreateMap<DietDto, DietType>()
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImagePath));
         }
     }
 }

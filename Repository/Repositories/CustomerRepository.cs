@@ -45,6 +45,14 @@ namespace Repository.Reposetories
         {
             var customer = GetById(id);
             customer.FullName = item.FullName;
+            customer.Email = item.Email;
+            customer.Weight= item.Weight;
+            customer.Height= item.Height;
+            customer.Phone= item.Phone;
+            customer.Role= item.Role;
+            customer.Password= item.Password;
+            customer.ImageUrl= item.ImageUrl;
+  
             _context.Save();
         }
 

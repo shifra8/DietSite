@@ -21,7 +21,7 @@ namespace MyProject.Controllers
             this._service = _service;
         }
 
-       
+
         // GET: api/<DietTypeController>
 
         [HttpGet]
@@ -63,29 +63,26 @@ namespace MyProject.Controllers
 
 
 
-
-        // POST api/<DietTypeController>
         [HttpPost]
-        //public DietDto Post([FromForm] DietDto diet)
-        //{
-        //    return _service.AddItem(diet);
-        //}
-
-
-        public IActionResult Post([FromForm] DietDto diet)
+        public async Task<IActionResult> Post([FromForm] DietDto diet)
         {
-
             if (diet == null)
                 return BadRequest("Invalid Diet data.");
-            //var path =Path.Combine( Environment.CurrentDirectory , "Images//" , diet.fileImage.FileName);
-            //using (var stream = new FileStream(path, FileMode.Create))
-            //{
-            //    stream.CopyTo(stream);
 
-            //}
+            if (diet.fileImage != null && diet.fileImage.Length > 0)
+            {
+                // מעלים את התמונה לתיקיית "dietTypes" ומקבלים את הנתיב
+                var imagePath = await _fileUploadService.UploadImageAsync(diet.fileImage, "dietTypes");
+
+                // שומרים את הנתיב בשדה המתאים
+                diet.ImagePath = imagePath;
+            }
+
             _service.AddItem(diet);
             return Ok("Diet added successfully.");
         }
+
+
 
 
 
@@ -97,7 +94,7 @@ namespace MyProject.Controllers
 
         public IActionResult Put(int id, [FromForm] DietDto dietDto)
         {
-            if (id != dietDto. DietId)
+            if (id != dietDto.DietId)
                 return BadRequest("ID mismatch.");
 
             try
@@ -110,11 +107,11 @@ namespace MyProject.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-       
+
 
         // DELETE api/<DietTypeController>/5
         [HttpDelete("{id}")]
-       
+
         public IActionResult Delete(int id)
         {
             try
@@ -127,5 +124,6 @@ namespace MyProject.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
     }
 }

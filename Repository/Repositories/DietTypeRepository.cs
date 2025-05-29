@@ -41,13 +41,17 @@ namespace Repository.Repositories
 
         public void UpdateItem(int id, DietType item)
         {
-           var dietType = GetById(id);
+            var dietType = GetById(id);
             dietType.DietName = item.DietName;
             dietType.TimeMeals = item.TimeMeals;
             dietType.MealsPerDay = item.MealsPerDay;
             dietType.NumCalories = item.NumCalories;
             dietType.Customers = item.Customers;
+
+            _context.Save();
+
             dietType.TimeMealsString = item.TimeMealsString;
+
             //לבדק אם זה באמת כל הפרופרטי
             _context.Save();
         }

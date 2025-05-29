@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Common.Dto;
 using Repository.Entities;
 using Repository.Interfaces;
@@ -26,8 +25,29 @@ namespace Service
 
         public DietDto AddItem(DietDto item)
         {
-            return _mapper.Map<DietType, DietDto>(_repository.AddItem(_mapper.Map<DietDto, DietType>(item)));
+            string savedImagePath = null;
+
+            if (item.fileImage != null && item.fileImage.Length > 0)
+            {
+                var fileName = Path.GetFileName(item.fileImage.FileName);
+                var directory = Path.Combine(Directory.GetCurrentDirectory(), "MyProject", "Images");
+                Directory.CreateDirectory(directory); // אם התיקייה לא קיימת, תיווצר
+                savedImagePath = Path.Combine(directory, fileName);
+
+                using (var stream = new FileStream(savedImagePath, FileMode.Create))
+                {
+                    item.fileImage.CopyTo(stream);
+                }
+
+                item.ImagePath = Path.Combine("MyProject", "Images", fileName);
+
+            }
+
+            var dietEntity = _mapper.Map<DietDto, DietType>(item);
+            var addedEntity = _repository.AddItem(dietEntity);
+            return _mapper.Map<DietType, DietDto>(addedEntity);
         }
+
 
         public void DeleteItem(int id)
         {

@@ -87,7 +87,7 @@ namespace MyProject.Controllers
                 Weight = request.Weight,
                 Role = request.Role,
                 //DietType = new DietType(),
-             //  ImagePath = imagePath
+                //ImagePath = imagePath
             };
 
             var createdCustomer = _service.AddItem(customerDto);
