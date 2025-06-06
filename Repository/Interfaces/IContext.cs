@@ -13,8 +13,11 @@ namespace Repository.Interfaces
         public DbSet<DietType> DietTypes { get; set; }
         public DbSet<WeeklyTracking> WeeklyTrackings { get; set; }
         public DbSet<ProductForDietType> ProductForDietTypes { get; set; }
-        //public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<CustomerFoodPreference> CustomerFoodPreferences { get; set; }
 
-       public void Save();
+        public void Save();
+
+
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Repository.Interfaces;
 namespace Service.Services
 {
     public class FoodPreferenceService : IFoodPreferenceService
@@ -26,6 +26,7 @@ namespace Service.Services
         public FoodPreferencesDto GetUserPreferences(int userId)
         {
             // שליפה מהמסד
+            return null; // או מימוש אמיתי, תראי בהמשך
         }
 
         public void ClearPreferences(int userId)

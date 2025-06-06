@@ -4,16 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Repository.Entities.CustomerFoodPerfence;
+using static Repository.Entities.CustomerFoodPreference;
 
 namespace Repository.Entities
 {
-    public class Products
-    {
-        using System.ComponentModel.DataAnnotations;
-
-namespace Repository.Entities
-    {
+ 
         public class Product
         {
             [Key]
@@ -32,6 +27,4 @@ namespace Repository.Entities
             public virtual ICollection<CustomerFoodPreference> CustomerFoodPreferences { get; set; }
         }
     }
-
-}
 

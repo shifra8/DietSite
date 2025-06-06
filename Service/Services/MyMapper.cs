@@ -25,6 +25,8 @@ namespace Service
             // מיפוי מ-DietDto ל-DietType
             CreateMap<DietDto, DietType>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImagePath));
+            CreateMap<CustomerFoodPreference, FoodPreferencesDto>().ReverseMap();
+           
         }
     }
 }
