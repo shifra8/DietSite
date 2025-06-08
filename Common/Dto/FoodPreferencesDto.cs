@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Repository.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,14 @@ namespace Common.Dto
 {
     public class FoodPreferencesDto
     {
-       
+
+            public int Id { get; set; }
+
             public int CustomerId { get; set; }
 
-            public List<string> LikedProducts { get; set; }
+            public List<Product> LikedProducts { get; set; }
 
-            public List<string> DislikedProducts { get; set; }
+            public List<Product> DislikedProducts { get; set; }
         }
 
     

@@ -20,6 +20,7 @@ namespace Common.Dto
         public int Id { get; set; }
         public byte[]? ImagePath { get; set; }
         public IFormFile? fileImage { get; set; }
+        public virtual CustomerFoodPreference FoodPreferences { get; set; }
 
         //// פונקציה להמיר מ-CreateCustomerDto ל-CustomerDto
         //public static CustomerDto ToCustomerDto(CreateCustomerDto createCustomerDto, List<DietType> availableDietTypes)
@@ -52,6 +53,6 @@ namespace Common.Dto
         //    {
         //        return availableDietTypes.FirstOrDefault(); // אם לא מצא דיאטה, מחזיר דיאטת ברירת מחדל
         //    }
-       // }
+        // }
     }
 }

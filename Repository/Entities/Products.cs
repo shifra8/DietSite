@@ -24,7 +24,7 @@ namespace Repository.Entities
 
             public string? SourceApi { get; set; } // למשל "OpenFoodAPI"
 
-            public virtual ICollection<CustomerFoodPreference> CustomerFoodPreferences { get; set; }
+            public virtual CustomerFoodPreference CustomerFoodPreferences { get; set; }
         }
     }
 

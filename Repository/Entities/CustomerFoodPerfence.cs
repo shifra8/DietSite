@@ -10,11 +10,11 @@ using Repository.Entities;
 namespace Repository.Entities
 {
 
-    public enum FoodPreferenceType
-    {
-        LIKE,
-        DISLIKE
-    }
+    //public enum FoodPreferenceType
+    //{
+    //    LIKE,
+    //    DISLIKE
+    //}
 
     public class CustomerFoodPreference
     {
@@ -33,7 +33,10 @@ namespace Repository.Entities
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
 
-        [Required]
-        public FoodPreferenceType PreferenceType { get; set; }
+        public List<Product> LikedProducts { get; set; }
+
+        public List<Product> DislikedProducts { get; set; }
+        // [Required]
+        //   public FoodPreferenceType PreferenceType { get; set; }
     }
 }

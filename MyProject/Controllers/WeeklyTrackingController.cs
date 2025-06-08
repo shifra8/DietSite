@@ -1,7 +1,6 @@
 ﻿using Common.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyProject.Requests;
 using Service.Interfaces;
 using Service.Services;
 

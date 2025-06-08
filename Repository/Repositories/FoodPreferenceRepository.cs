@@ -31,11 +31,37 @@ namespace Repository.Repositories
             _context.CustomerFoodPreferences.RemoveRange(prefs);
         }
 
-        public List<CustomerFoodPreference> GetByCustomerId(int customerId)
+        
+
+        //public List<CustomerFoodPreference> GetByCustomerId(int customerId)
+        //{
+        //    return _context.CustomerFoodPreferences
+        //        .Where(p => p.CustomerId == customerId)
+        //        .ToList();
+        //}
+
+        public CustomerFoodPreference GetByCustomerId(int userId)
         {
-            return _context.CustomerFoodPreferences
-                .Where(p => p.CustomerId == customerId)
-                .ToList();
+            var preference = _context.CustomerFoodPreferences
+                .FirstOrDefault(p => p.CustomerId == userId);
+
+            if (preference == null)
+            {
+                return new CustomerFoodPreference
+                {
+                    CustomerId = userId,
+                    LikedProducts = new List<Product>(),
+                    DislikedProducts = new List<Product>()
+                };
+            }
+
+            return new CustomerFoodPreference
+            {
+                CustomerId = userId,
+                LikedProducts = preference.LikedProducts ?? new List<Product>(),
+                DislikedProducts = preference.DislikedProducts ?? new List<Product>()
+            };
         }
+
     }
 }

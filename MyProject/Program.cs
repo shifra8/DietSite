@@ -58,7 +58,9 @@ builder.Services.AddScoped<IRepository<DietType>, DietTypeRepository>();//לשי
 builder.Services.AddScoped<IService<WeeklyTrackingDto>, WeeklyTrackingService>();//לשים לב אם זה נכון
 builder.Services.AddScoped<IRepository<WeeklyTracking>, WeeklyTrackingRepository>();//לשים לב אם זה נכון
 
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IFoodPreferenceRepository, FoodPreferenceRepository>();
+builder.Services.AddScoped<IContext, Database>();
 
 
 // לדוגמה, אם יש גם:

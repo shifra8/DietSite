@@ -16,7 +16,8 @@ namespace Common.Dto
         public double? Weight { get; set; }
         public eRole Role { get; set; }
 
-        public List<int> FavoriteFoodIds { get; set; } //מאכלים אהובים
-        public List<int> GroupIds { get; set; } //  ללקוח (או המשתמש) יש רשימת מזהים של קבוצות שהוא שייך אליהן.
+        //לבדק שורה זו
+        public CustomerFoodPreference FavoriteFoodIds { get; set; } //מאכלים אהובים
+        //public List<int> GroupIds { get; set; } //  ללקוח (או המשתמש) יש רשימת מזהים של קבוצות שהוא שייך אליהן.
     }
 }

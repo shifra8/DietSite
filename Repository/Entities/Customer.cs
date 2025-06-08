@@ -49,7 +49,7 @@ namespace Repository.Entities
         public eRole Role { get; set; }
         public string? ImageUrl { get; set; }
         //שורה שהוספה עפ"י הנחיותgpt
-        public virtual ICollection<CustomerFoodPreference> FoodPreferences { get; set; }
+        public virtual CustomerFoodPreference FoodPreferences { get; set; }
 
     }
 }
