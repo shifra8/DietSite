@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Common.Dto;
 using Service.Interfaces;
 using System;
+using Common.Dto.Common.Dto;
 
 namespace MyProject.Controllers
 {
@@ -11,7 +12,7 @@ namespace MyProject.Controllers
     public class FoodPreferenceController : ControllerBase
     {
         private readonly IFoodPreferenceService _foodPreferenceService;
-        private readonly IService<FoodPreferencesDto> _service;
+        //private readonly IService<FoodPreferencesDto> _service;
 
 
         public FoodPreferenceController(IFoodPreferenceService foodPreferenceService)
@@ -35,15 +36,21 @@ namespace MyProject.Controllers
         //    }
         //}
 
+
         [HttpPost]
-
-        public IActionResult Post([FromForm] FoodPreferencesDto foodPreference)
+        [Authorize]
+        public IActionResult SavePreferences([FromForm] FoodPreferencesDto dto)
         {
-
-            if (foodPreference == null)
-                return BadRequest("Invalid weeklyTracking data.");
-            _service.AddItem(foodPreference);
-            return Ok("weeklyTracking added successfully.");
+            try
+            {
+                int userId = int.Parse(User.FindFirst("id").Value);
+                _foodPreferenceService.SaveUserPreferences(dto, userId);
+                return Ok("Preferences saved");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
 

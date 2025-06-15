@@ -1,10 +1,7 @@
 ﻿using Repository.Entities;
 using Repository.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository.Repositories
 {
@@ -20,6 +17,7 @@ namespace Repository.Repositories
         public void AddItem(CustomerFoodPreference pref)
         {
             _context.CustomerFoodPreferences.Add(pref);
+            _context.Save();
         }
 
         public void DeleteByCustomerId(int customerId)
@@ -29,39 +27,14 @@ namespace Repository.Repositories
                 .ToList();
 
             _context.CustomerFoodPreferences.RemoveRange(prefs);
+            _context.Save();
         }
 
-        
-
-        //public List<CustomerFoodPreference> GetByCustomerId(int customerId)
-        //{
-        //    return _context.CustomerFoodPreferences
-        //        .Where(p => p.CustomerId == customerId)
-        //        .ToList();
-        //}
-
-        public CustomerFoodPreference GetByCustomerId(int userId)
+        public List<CustomerFoodPreference> GetByCustomerId(int customerId)
         {
-            var preference = _context.CustomerFoodPreferences
-                .FirstOrDefault(p => p.CustomerId == userId);
-
-            if (preference == null)
-            {
-                return new CustomerFoodPreference
-                {
-                    CustomerId = userId,
-                    LikedProducts = new List<Product>(),
-                    DislikedProducts = new List<Product>()
-                };
-            }
-
-            return new CustomerFoodPreference
-            {
-                CustomerId = userId,
-                LikedProducts = preference.LikedProducts ?? new List<Product>(),
-                DislikedProducts = preference.DislikedProducts ?? new List<Product>()
-            };
+            return _context.CustomerFoodPreferences
+                .Where(p => p.CustomerId == customerId)
+                .ToList();
         }
-
     }
 }

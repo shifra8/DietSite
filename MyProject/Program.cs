@@ -49,18 +49,18 @@ builder.Services.AddSwaggerGen(option =>
 // ✅ הרשמה לשירותים שלך
 builder.Services.AddScoped<IService<CustomerDto>, CustomerService>();
 builder.Services.AddScoped<IFileUploadService, FileUploadService>();
-
-builder.Services.AddScoped<IService<CustomerDto>, CustomerService>();
 builder.Services.AddScoped<IRepository<Customer>, CustomerRepository>(); // או השם המדויק שלך
 builder.Services.AddAutoMapper(typeof(MyMapper)); // או typeof(Startup) / typeof(AutoMapperProfile)
 builder.Services.AddScoped<IService<DietDto>, DietTypeService>();//לשים לב אם זה נכון
 builder.Services.AddScoped<IRepository<DietType>, DietTypeRepository>();//לשים לב אם זה נכון
 builder.Services.AddScoped<IService<WeeklyTrackingDto>, WeeklyTrackingService>();//לשים לב אם זה נכון
 builder.Services.AddScoped<IRepository<WeeklyTracking>, WeeklyTrackingRepository>();//לשים לב אם זה נכון
-
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IFoodPreferenceRepository, FoodPreferenceRepository>();
 builder.Services.AddScoped<IContext, Database>();
+
+builder.Services.AddScoped<IService<ProductDto>, ProductService>();//לשים לב אם זה נכון
+builder.Services.AddScoped < IRepository <Product>, ProductRepository>();//לשים לב אם זה נכון
 
 
 // לדוגמה, אם יש גם:

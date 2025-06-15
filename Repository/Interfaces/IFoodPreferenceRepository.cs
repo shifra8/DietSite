@@ -11,6 +11,7 @@ namespace Repository.Interfaces
     {
         void AddItem(CustomerFoodPreference pref);
         void DeleteByCustomerId(int customerId);
-        CustomerFoodPreference GetByCustomerId(int customerId);
+        List<CustomerFoodPreference> GetByCustomerId(int customerId);
     }
+
 }

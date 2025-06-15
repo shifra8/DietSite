@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace Common.Dto
 {
-    public class FoodPreferencesDto
+    namespace Common.Dto
     {
-
-            public int Id { get; set; }
-
+        public class FoodPreferencesDto
+        {
             public int CustomerId { get; set; }
+            //שמירת מוצרים עפ"י id
+            public List<int> LikedProductIds { get; set; }
 
-            public List<Product> LikedProducts { get; set; }
-
-            public List<Product> DislikedProducts { get; set; }
+            public List<int> DislikedProductIds { get; set; }
         }
+    }
 
-    
+
+
 }

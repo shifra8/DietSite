@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Dto
 {
+    //צריך את זה?
     public class DietProductDto
     {
         public int ProductId { get; set; }

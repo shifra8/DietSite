@@ -12,7 +12,7 @@ namespace Repository.Entities
         public class Product
         {
             [Key]
-            public string ProductId { get; set; } // מזהה מהמוצר או מה-API
+            public int ProductId { get; set; } // מזהה מהמוצר או מה-API
 
             [Required]
             public string Name { get; set; }

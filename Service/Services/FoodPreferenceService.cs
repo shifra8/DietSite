@@ -1,17 +1,15 @@
 ﻿using Common.Dto;
 using Service.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Repository.Interfaces;
 using Repository.Entities;
+using Common.Dto.Common.Dto;
+
 namespace Service.Services
 {
     public class FoodPreferenceService : IFoodPreferenceService
     {
-
         private readonly IUnitOfWork _unitOfWork;
 
         public FoodPreferenceService(IUnitOfWork unitOfWork)
@@ -25,30 +23,30 @@ namespace Service.Services
             _unitOfWork.FoodPreferenceRepository.DeleteByCustomerId(userId);
 
             // שומרים את המוצרים האהובים
-            if (dto.LikedProducts != null)
+            if (dto.LikedProductIds != null)
             {
-                foreach (var product in dto.LikedProducts)
+                foreach (var productId in dto.LikedProductIds)
                 {
                     var pref = new CustomerFoodPreference
                     {
                         CustomerId = userId,
-                        ProductId = product.ProductId
-                        // אין צורך בשדה נוסף
+                        ProductId = productId,
+                        IsLiked = true
                     };
                     _unitOfWork.FoodPreferenceRepository.AddItem(pref);
                 }
             }
 
             // שומרים את המוצרים השנואים
-            if (dto.DislikedProducts != null)
+            if (dto.DislikedProductIds != null)
             {
-                foreach (var product in dto.DislikedProducts)
+                foreach (var productId in dto.DislikedProductIds)
                 {
                     var pref = new CustomerFoodPreference
                     {
                         CustomerId = userId,
-                        ProductId = product.ProductId
-                        // אין צורך בשדה נוסף
+                        ProductId = productId,
+                        IsLiked = false
                     };
                     _unitOfWork.FoodPreferenceRepository.AddItem(pref);
                 }
@@ -57,33 +55,35 @@ namespace Service.Services
             _unitOfWork.Save();
         }
 
-
         public FoodPreferencesDto GetUserPreferences(int userId)
         {
-            var preference = _unitOfWork.FoodPreferenceRepository.GetByCustomerId(userId);
+            var preferences = _unitOfWork.FoodPreferenceRepository.GetByCustomerId(userId);
 
-            if (preference == null)
+            if (preferences == null || !preferences.Any())
             {
                 return new FoodPreferencesDto
                 {
                     CustomerId = userId,
-                    LikedProducts = new List<Product>(),
-                    DislikedProducts = new List<Product>()
+                    LikedProductIds = new List<int>(),
+                    DislikedProductIds = new List<int>()
                 };
             }
+
+            var liked = preferences.Where(p => p.IsLiked).Select(p => p.ProductId).ToList();
+            var disliked = preferences.Where(p => !p.IsLiked).Select(p => p.ProductId).ToList();
 
             return new FoodPreferencesDto
             {
                 CustomerId = userId,
-                LikedProducts = preference.LikedProducts ?? new List<Product>(),
-                DislikedProducts = preference.DislikedProducts ?? new List<Product>()
+                LikedProductIds = liked,
+                DislikedProductIds = disliked
             };
         }
 
         public void ClearPreferences(int userId)
         {
-            // מחיקה/ניקוי מהמסד
+            _unitOfWork.FoodPreferenceRepository.DeleteByCustomerId(userId);
+            _unitOfWork.Save();
         }
     }
-
 }

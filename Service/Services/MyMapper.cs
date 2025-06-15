@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.Dto;
+using Common.Dto.Common.Dto;
 using Repository.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace Service
             CreateMap<CustomerDto, Customer>().ForMember("ImageUrl", x => x.MapFrom(y => y.fileImage.FileName));//check this line
             CreateMap<DietType, DietDto>().ReverseMap();
             CreateMap<WeeklyTracking, WeeklyTrackingDto>().ReverseMap();
+            CreateMap<Product, ProductDto>().ReverseMap();
+
             CreateMap<DietType, DietDto>()
                   .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => src.ImageUrl));
 
