@@ -9,28 +9,48 @@ using Repository.Entities;
 
 namespace Repository.Entities
 {
-    
 
     public class CustomerFoodPreference
     {
-        [Key]
         public int Id { get; set; }
-
-        [Required]
         public int CustomerId { get; set; }
-
-        [ForeignKey("CustomerId")]
-        public virtual Customer Customer { get; set; }
-
-        [Required]
         public int ProductId { get; set; }
 
-        [ForeignKey("ProductId")]
-        public virtual Product Product { get; set; }
-
-        [Required]
+        // השדה שמבדיל בין אהוב לשנוא
         public bool IsLiked { get; set; }
 
-        
+        // קשרים לאובייקטים אחרים במידה ויש
+        public Product Product { get; set; }
+        public Customer Customer { get; set; }
     }
+
+
+    //public enum FoodPreferenceType
+    //{
+    //    LIKE,
+    //    DISLIKE
+    //}
+
+    //public class CustomerFoodPreference
+    //{
+    //    [Key]
+    //    public int Id { get; set; }
+
+    //    [Required]
+    //    public int CustomerId { get; set; }
+
+    //    [ForeignKey("CustomerId")]
+    //    public virtual Customer Customer { get; set; }
+
+    //    [Required]
+    //    public int ProductId { get; set; }
+
+    //    [ForeignKey("ProductId")]
+    //    public virtual Product Product { get; set; }
+
+    //    [Required]
+    //    public bool IsLiked { get; set; }  // true = Liked, false = Disliked
+
+    //}
+
 }

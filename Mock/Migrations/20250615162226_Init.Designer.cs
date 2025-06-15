@@ -12,8 +12,8 @@ using Mock;
 namespace Mock.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20250522194646_init15")]
-    partial class init15
+    [Migration("20250615162226_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace Mock.Migrations
 
             modelBuilder.Entity("Repository.Entities.Customer", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("DietId")
                         .HasColumnType("int");
@@ -50,6 +50,9 @@ namespace Mock.Migrations
                     b.Property<double>("Height")
                         .HasColumnType("float");
 
+                    b.Property<byte[]>("ImagePath")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -67,11 +70,38 @@ namespace Mock.Migrations
                     b.Property<double>("Weight")
                         .HasColumnType("float");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DietId");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Repository.Entities.CustomerFoodPreference", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsLiked")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("CustomerFoodPreferences");
                 });
 
             modelBuilder.Entity("Repository.Entities.DietType", b =>
@@ -106,6 +136,38 @@ namespace Mock.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DietTypes");
+                });
+
+            modelBuilder.Entity("Repository.Entities.Product", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
+
+                    b.Property<double?>("Calories")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Carbohydrates")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Fat")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Protein")
+                        .HasColumnType("float");
+
+                    b.Property<string>("SourceApi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProductId");
+
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Repository.Entities.ProductForDietType", b =>
@@ -169,6 +231,25 @@ namespace Mock.Migrations
                     b.Navigation("DietType");
                 });
 
+            modelBuilder.Entity("Repository.Entities.CustomerFoodPreference", b =>
+                {
+                    b.HasOne("Repository.Entities.Customer", "Customer")
+                        .WithMany("FoodPreferences")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Repository.Entities.Product", "Product")
+                        .WithOne("CustomerFoodPreferences")
+                        .HasForeignKey("Repository.Entities.CustomerFoodPreference", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Repository.Entities.ProductForDietType", b =>
                 {
                     b.HasOne("Repository.Entities.DietType", "DietTypeCode")
@@ -191,12 +272,20 @@ namespace Mock.Migrations
 
             modelBuilder.Entity("Repository.Entities.Customer", b =>
                 {
+                    b.Navigation("FoodPreferences");
+
                     b.Navigation("WeeklyTrackings");
                 });
 
             modelBuilder.Entity("Repository.Entities.DietType", b =>
                 {
                     b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("Repository.Entities.Product", b =>
+                {
+                    b.Navigation("CustomerFoodPreferences")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

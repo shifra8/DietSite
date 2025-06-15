@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Common.Dto;
 using Service.Interfaces;
 using System;
-using Common.Dto.Common.Dto;
 
 namespace MyProject.Controllers
 {

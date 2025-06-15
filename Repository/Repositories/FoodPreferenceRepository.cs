@@ -1,7 +1,10 @@
 ﻿using Repository.Entities;
 using Repository.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository.Repositories
 {
@@ -17,7 +20,6 @@ namespace Repository.Repositories
         public void AddItem(CustomerFoodPreference pref)
         {
             _context.CustomerFoodPreferences.Add(pref);
-            _context.Save();
         }
 
         public void DeleteByCustomerId(int customerId)
@@ -27,8 +29,16 @@ namespace Repository.Repositories
                 .ToList();
 
             _context.CustomerFoodPreferences.RemoveRange(prefs);
-            _context.Save();
         }
+
+
+
+        //public List<CustomerFoodPreference> GetByCustomerId(int customerId)
+        //{
+        //    return _context.CustomerFoodPreferences
+        //        .Where(p => p.CustomerId == customerId)
+        //        .ToList();
+        //}
 
         public List<CustomerFoodPreference> GetByCustomerId(int customerId)
         {
@@ -36,5 +46,8 @@ namespace Repository.Repositories
                 .Where(p => p.CustomerId == customerId)
                 .ToList();
         }
+
+
+
     }
 }

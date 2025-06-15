@@ -1,14 +1,10 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Common.Dto;
 using Repository.Entities;
 using Repository.Interfaces;
 using Service.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Service
@@ -24,9 +20,23 @@ namespace Service
             _mapper = mapper;
         }
 
+        public CustomerDto GetById(int id)
+        {
+            var customer = _repository.GetById(id);
+            return _mapper.Map<CustomerDto>(customer);
+        }
+
+        public List<CustomerDto> GetAll()
+        {
+            var customers = _repository.GetAll();
+            return _mapper.Map<List<CustomerDto>>(customers);
+        }
+
         public CustomerDto AddItem(CustomerDto item)
         {
-            return _mapper.Map<Customer, CustomerDto>(_repository.AddItem(_mapper.Map<CustomerDto, Customer>(item)));
+            var customer = _mapper.Map<Customer>(item);
+            var added = _repository.AddItem(customer);
+            return _mapper.Map<CustomerDto>(added);
         }
 
         public void DeleteItem(int id)
@@ -34,24 +44,11 @@ namespace Service
             _repository.DeleteItem(id);
         }
 
-        public List<CustomerDto> GetAll()
-        {
-            return _mapper.Map<List<Customer>, List<CustomerDto>>(_repository.GetAll());
-        }
-
-        public CustomerDto GetById(int id)
-        {
-            return _mapper.Map<Customer, CustomerDto>(_repository.GetById(id));
-        }
-
         public void UpdateItem(int id, CustomerDto item)
         {
-            _repository.UpdateItem(id, _mapper.Map<CustomerDto, Customer>(item));
-        }
-
-        public void UpdateItem(int id, WeeklyTrackingDto weeklyTrackingDto)
-        {
-            throw new NotImplementedException();
+            var customer = _mapper.Map<Customer>(item);
+            _repository.UpdateItem(id, customer);
         }
     }
+
 }

@@ -1,61 +1,47 @@
 ﻿using Repository.Entities;
 using Repository.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Repository.Reposetories
+namespace Repository.Repositories
 {
-    //V
     public class CustomerRepository : IRepository<Customer>
     {
-        private readonly IContext _context;
-        public CustomerRepository(IContext _context)
-        {
-            this._context = _context;
-        }
+        private readonly List<Customer> _customers = new();
+        private int _nextId = 1;
+
         public Customer AddItem(Customer item)
         {
-            this._context.Customers.Add(item);
-            this._context.Save();
+            item.Id = _nextId++;
+            _customers.Add(item);
             return item;
         }
 
         public void DeleteItem(int id)
         {
-            this._context.Customers.Remove(GetById(id));
-            this._context.Save();
+            var customer = _customers.FirstOrDefault(c => c.Id == id);
+            if (customer != null)
+                _customers.Remove(customer);
         }
-
 
         public List<Customer> GetAll()
         {
-            return _context.Customers.ToList();
+            return _customers;
         }
 
         public Customer GetById(int id)
         {
-            return this._context.Customers.FirstOrDefault(x => x.CustomerId == id);
+            return _customers.FirstOrDefault(c => c.Id == id)!;
         }
-
 
         public void UpdateItem(int id, Customer item)
         {
-            var customer = GetById(id);
-            customer.FullName = item.FullName;
-            customer.Email = item.Email;
-            customer.Weight= item.Weight;
-            customer.Height= item.Height;
-            customer.Phone= item.Phone;
-            //customer.Role= item.Role;
-            customer.Password= item.Password;
-            customer.ImageUrl= item.ImageUrl;
-  
-            _context.Save();
+            var index = _customers.FindIndex(c => c.Id == id);
+            if (index != -1)
+            {
+                item.Id = id;
+                _customers[index] = item;
+            }
         }
-
-      
     }
 }

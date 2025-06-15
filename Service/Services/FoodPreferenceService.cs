@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Repository.Interfaces;
 using Repository.Entities;
-using Common.Dto.Common.Dto;
 
 namespace Service.Services
 {

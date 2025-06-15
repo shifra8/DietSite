@@ -24,11 +24,11 @@ namespace Mock.Migrations
 
             modelBuilder.Entity("Repository.Entities.Customer", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("DietId")
                         .HasColumnType("int");
@@ -47,6 +47,9 @@ namespace Mock.Migrations
                     b.Property<double>("Height")
                         .HasColumnType("float");
 
+                    b.Property<byte[]>("ImagePath")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -64,7 +67,7 @@ namespace Mock.Migrations
                     b.Property<double>("Weight")
                         .HasColumnType("float");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DietId");
 
@@ -82,16 +85,15 @@ namespace Mock.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PreferenceType")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsLiked")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId")
-                        .IsUnique();
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("ProductId")
                         .IsUnique();
@@ -229,8 +231,8 @@ namespace Mock.Migrations
             modelBuilder.Entity("Repository.Entities.CustomerFoodPreference", b =>
                 {
                     b.HasOne("Repository.Entities.Customer", "Customer")
-                        .WithOne("FoodPreferences")
-                        .HasForeignKey("Repository.Entities.CustomerFoodPreference", "CustomerId")
+                        .WithMany("FoodPreferences")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -267,8 +269,7 @@ namespace Mock.Migrations
 
             modelBuilder.Entity("Repository.Entities.Customer", b =>
                 {
-                    b.Navigation("FoodPreferences")
-                        .IsRequired();
+                    b.Navigation("FoodPreferences");
 
                     b.Navigation("WeeklyTrackings");
                 });

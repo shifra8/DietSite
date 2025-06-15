@@ -14,13 +14,13 @@ namespace Repository.Entities
     //i added it's
     public enum eRole
     {
-        ADMIN,WORKER,USER
+        ADMIN, WORKER, USER
     }
 
     public class Customer
     {
         [Key]
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string FullName { get; set; }
@@ -48,8 +48,11 @@ namespace Repository.Entities
 
         public eRole Role { get; set; }
         public string? ImageUrl { get; set; }
-        //שורה שהוספה עפ"י הנחיותgpt
-        public virtual CustomerFoodPreference FoodPreferences { get; set; }
+        //GPT said to change to llist...
+        //public virtual CustomerFoodPreference FoodPreferences { get; set; }
+        public virtual ICollection<CustomerFoodPreference> FoodPreferences { get; set; }
+        public byte[]? ImagePath { get; set; }
+
 
     }
 }

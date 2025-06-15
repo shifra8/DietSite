@@ -16,5 +16,6 @@ namespace Repository.Interfaces
         void UpdateItem(int id, T item);
       //  Customer GetById(string id);
       //  void UpdateItem(string id, Customer customer);
+
     }
 }

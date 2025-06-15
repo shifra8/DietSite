@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Repository.Entities;
 using System.Collections.Generic;
 
@@ -7,7 +6,6 @@ namespace Common.Dto
 {
     public class SignUpDto
     {
-        
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
@@ -16,8 +14,9 @@ namespace Common.Dto
         public double? Weight { get; set; }
         public eRole Role { get; set; }
 
-        //לבדק שורה זו
-        public CustomerFoodPreference FavoriteFoodIds { get; set; } //מאכלים אהובים
-        //public List<int> GroupIds { get; set; } //  ללקוח (או המשתמש) יש רשימת מזהים של קבוצות שהוא שייך אליהן.
+        public List<int> LikedProductIds { get; set; } = new();
+        public List<int> DislikedProductIds { get; set; } = new();
+
+        public IFormFile? FileImage { get; set; }
     }
 }
